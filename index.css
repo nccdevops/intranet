@@ -9,6 +9,7 @@ body {
 	height: 3rem;
 	flex-shrink: 0; 
 	border: 1px solid #00660A;
+	display: flex
 }
 
 .logo{
@@ -50,4 +51,51 @@ body {
 	font-weight: 600;
 	line-height: 1.3125rem; /* 210% */ 
 	margin-top: -1rem;
+}
+
+.search--section {
+	width: 25rem;
+	height: 1.75rem;
+	background-color: rgba(255, 255, 255, 0.3) ;
+	border: 1px solid #00660A;
+	border-radius: 5px;
+	position: relative;
+	margin-left: 10rem;
+	margin-top: 0.6rem;
+}
+
+.search--section i {
+	margin-left: 0.5rem;
+	margin-top: 0.4rem;
+}
+
+.search--section ::placeholder {
+	color: #FFF;
+	font-family: Segoe UI;
+	font-size: 0.875rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal; 
+}
+
+.search--section input{
+	background: transparent;
+	border: none;
+	width: 20rem;
+	outline: none;
+	color: #FFF;
+}
+
+.searchbar--actions {
+	width: 12rem;
+	height: 2rem;
+	flex-shrink: 0; 
+
+	margin-left: 20rem;
+	padding-top: 1rem;
+	padding-left: 1rem;
+}
+
+.searchbar--actions i {
+	margin-left: 0.5rem;
 }
