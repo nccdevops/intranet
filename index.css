@@ -5,7 +5,7 @@ body {
 
 .searchbar {
 	background-color: #00660A; 
-	width: 90rem;
+	width: 100%;
 	height: 3rem;
 	flex-shrink: 0; 
 	border: 1px solid #00660A;
@@ -81,7 +81,7 @@ body {
 .search--section input{
 	background: transparent;
 	border: none;
-	width: 20rem;
+	width: 15rem;
 	outline: none;
 	color: #FFF;
 }
@@ -104,8 +104,8 @@ body {
 
 
 .navbar {
-	width: 90rem;
-	height: 6.5rem;
+	width: 100%;
+	height: 4rem;
 	flex-shrink: 0; 
 
 	background: var(--White, #FFF); 
@@ -135,7 +135,7 @@ body {
 .org--name {
 	/*border: 1px solid blue;*/
 	color: var(--Text, #000);
-	font-family: Cabin;
+	font-family: 'Inter', sans-serif;
 	font-size: 0.9rem;
 	font-style: normal ;
 	font-weight: 600;
@@ -158,12 +158,19 @@ body {
 .navbar--links ul li{
 	margin-right: 2.2rem;
 	color: var(--Text, #000);
-	font-family: Cabin;
+	font-family: 'Inter', sans-serif;
 	font-size: 0.875rem;
 	font-style: normal;
 	font-weight: 600;
 	line-height: 1.25rem;
 }
 
+/* --- start of hero css --- */
+.hero {
+	width: 100%;
+	height: 25rem;
+	flex-shrink: 0; 
+	background-color: rgba(1, 202, 184, 0.93) ;
+}
 
 
