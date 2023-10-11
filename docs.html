@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Document Management System</h1>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <h2>Filters</h2>
+      <label for="department">Department:</label>
+      <select id="department">
+        <option value="">All</option>
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Procurement">Procurement</option>
+        <option value="Governance">Governance</option>
+      </select>
+
+      <label for="docType">Document Type:</label>
+      <select id="docType">
+        <option value="">All</option>
+        <option value="pdf">PDF</option>
+        <option value="pptx">PPTX</option>
+        <option value="docx">DOCX</option>
+        <option value="excel">Excel</option>
+      </select>
+
+      <label for="dateFilter">Date:</label>
+      <select id="dateFilter">
+        <option value="">All</option>
+        <option value="lastYear">Last Year</option>
+        <option value="last6Months">Last 6 Months</option>
+        <option value="thisMonth">This Month</option>
+      </select>
+
+      <button id="applyFilters">Apply Filters</button>
+    </div>
+
+    <div class="documents">
+      <h2>Documents</h2>
+      <ul id="documentList">
+        <!-- Display documents here -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal for Document Upload -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeUploadModal">&times;</span>
+      <h3>Upload Document</h3>
+      <input type="file" id="fileInput" accept=".pdf, .pptx, .docx, .xlsx">
+      <label for="departmentTag">Department Tag:</label>
+      <select id="departmentTag">
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Procurement">Procurement</option>
+        <option value="Governance">Governance</option>
+      </select>
+      <button id="uploadDocument">Upload</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button id="uploadButton">Upload Document</button>
+  </div>
+
+  <script>
+    // Sample data structure for documents (simulated with localStorage)
+    const documents = JSON.parse(localStorage.getItem('documents')) || [];
+
+    // Function to display the upload modal
+    function openUploadModal() {
+      const uploadModal = document.getElementById('uploadModal');
+      uploadModal.style.display = 'block';
+    }
+
+    // Function to close the upload modal
+    function closeUploadModal() {
+      const uploadModal = document.getElementById('uploadModal');
+      uploadModal.style.display = 'none';
+    }
+
+    // Event listener for opening the upload modal
+    document.getElementById('uploadButton').addEventListener('click', openUploadModal);
+
+    // Event listener for closing the upload modal
+    document.getElementById('closeUploadModal').addEventListener('click', closeUploadModal);
+
+    // Function to handle document upload
+    function handleDocumentUpload() {
+      const fileInput = document.getElementById('fileInput');
+      const selectedFile = fileInput.files[0];
+      const departmentTag = document.getElementById('departmentTag').value;
+
+      if (selectedFile) {
+        documents.push({
+          name: selectedFile.name,
+          department: departmentTag,
+          docType: 'pdf', // Replace with the actual document type
+          date: new Date().toISOString(),
+        });
+
+        localStorage.setItem('documents', JSON.stringify(documents));
+        closeUploadModal();
+        filterDocuments();
+      }
+    }
+
+    // Event listener for document upload
+    document.getElementById('uploadDocument').addEventListener('click', handleDocumentUpload);
+
+    // Function to delete a document
+    function deleteDocument(docName) {
+      const updatedDocuments = documents.filter((doc) => doc.name !== docName);
+      localStorage.setItem('documents', JSON.stringify(updatedDocuments));
+      filterDocuments();
+    }
+
+    // Function to edit the department tag of a document
+    function editDocumentDepartment(docName, newDepartment) {
+      const updatedDocuments = documents.map((doc) => {
+        if (doc.name === docName) {
+          doc.department = newDepartment;
+        }
+        return doc;
+      });
+      localStorage.setItem('documents', JSON.stringify(updatedDocuments));
+      filterDocuments();
+    }
+
+    // Function to add a general tag to a document
+    function addGeneralTag(docName) {
+      const updatedDocuments = documents.map((doc) => {
+        if (doc.name === docName) {
+          doc.general = true;
+        }
+        return doc;
+      });
+      localStorage.setItem('documents', JSON.stringify(updatedDocuments));
+      filterDocuments();
+    }
+
+    // Event listener for document delete button
+    document.getElementById('documentList').addEventListener('click', (event) => {
+      if (event.target && event.target.tagName === 'LI') {
+        const docName = event.target.textContent;
+        if (confirm(`Delete document "${docName}"?`)) {
+          deleteDocument(docName);
+        }
+      }
+    });
+
+    // Event listener for document edit button (change department tag)
+    document.getElementById('documentList').addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+      const docName = event.target.textContent;
+      const newDepartment = prompt(`Edit the department tag for "${docName}" to:`, '');
+      if (newDepartment) {
+        editDocumentDepartment(docName, newDepartment);
+      }
+    });
+
+    // Event listener for adding a general tag to a document
+    document.getElementById('documentList').addEventListener('dblclick', (event) => {
+      const docName = event.target.textContent;
+      addGeneralTag(docName);
+    });
+
+   // Function to filter documents based on selected filters
+function filterDocuments() {
+  const selectedDepartment = document.getElementById('department').value;
+  const selectedDocType = document.getElementById('docType').value;
+  const selectedDateFilter = document.getElementById('dateFilter').value;
+
+  // Filter the documents based on selected filters
+  const filteredDocuments = documents.filter((doc) => {
+    // Implement your filtering logic here based on selected filters
+    const departmentMatch = selectedDepartment === '' || doc.department === selectedDepartment;
+    const docTypeMatch = selectedDocType === '' || doc.docType === selectedDocType;
+
+    // Date filter logic
+    const currentDate = new Date();
+    const lastYearDate = new Date(currentDate);
+    lastYearDate.setFullYear(currentDate.getFullYear() - 1);
+    const sixMonthsAgo = new Date(currentDate);
+    sixMonthsAgo.setMonth(currentDate.getMonth() - 6);
+    const thisMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+    let dateMatch = false;
+    if (selectedDateFilter === 'lastYear' && new Date(doc.date) >= lastYearDate) {
+      dateMatch = true;
+    } else if (selectedDateFilter === 'last6Months' && new Date(doc.date) >= sixMonthsAgo) {
+      dateMatch = true;
+    } else if (selectedDateFilter === 'thisMonth' && new Date(doc.date) >= thisMonthStart) {
+      dateMatch = true;
+    } else if (selectedDateFilter === '') {
+      dateMatch = true;
+    }
+
+    return departmentMatch && docTypeMatch && dateMatch;
+  });
+
+  displayDocuments(filteredDocuments);
+}
+
+    // Function to display documents in the list
+    function displayDocuments(documents) {
+      const documentList = document.getElementById('documentList');
+      documentList.innerHTML = '';
+
+      documents.forEach((doc) => {
+        const li = document.createElement('li');
+        li.textContent = doc.name;
+        documentList.appendChild(li);
+      });
+    }
+
+    // Event listener for filter application button
+    document.getElementById('applyFilters').addEventListener('click', applyFilters);
+
+    // Function to handle filter application
+    function applyFilters() {
+      filterDocuments();
+    }
+
+    // Initial document list display
+    filterDocuments();
+
+    
+  </script>
+</body>
+</html>
