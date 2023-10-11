@@ -465,7 +465,7 @@ body {
 
 /* --- section 2 css --- */
 .section2 {
-	width: 1440px;
+	width: 100%;
 	height: 550px;
 	flex-shrink: 0;
 	background: #FFF;
@@ -647,4 +647,95 @@ body {
 
 	background-color: #FFF;
 	margin-left: 1rem;
+}
+
+
+/* --- section 3 css --- */
+.section3 {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	background: #F8F8F9;
+}
+
+.staff{
+	width: 91%;
+	height: 313px;
+	flex-shrink: 0;
+	border-radius: 3px;
+	background: var(--Primary-White, #FFF);
+	box-shadow: 0px 3.2px 7.2px 0px rgba(0, 0, 0, 0.13), 0px 0.6px 1.8px 0px rgba(0, 0, 0, 0.11);
+	margin-left: 3rem;
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+
+.staff h3 {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 4px;
+
+	margin-left: 1rem;
+}
+
+.employees {
+	display: flex;
+}
+
+.employee {
+	display: flex;
+	width: 163px;
+	height: 218px;
+	padding-top: 20px;
+	flex-direction: column;
+	align-items: center;
+	gap: 28px;
+	background: var(--Gray, #F8F8F9);
+
+	/*border: 1px solid red;*/
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+}
+
+.emp--image {
+	width: 104px;
+	height: 104px;
+	flex-shrink: 0;
+	border-radius: 104px;
+	/*border: 1px solid red;*/
+	margin: 0;
+	background: url(https://s3-alpha-sig.figma.com/img/c777/60c2/8f180225ff7105e97479105c3bc3d9df?Expires=1698019200&Signature=neaLH4I94DFxwT323heYGVk4HPqrype7krY7Pjw1Lf3CscjQF10XoZ8Y9hYgUFUcwSzzi3Rgh0pVTST-hdiKVcsFMo69Br3~HtXAWYVthbaUazNryc7itnoYE4RYaEXhN98fwHvnGXGOYh4oNegtmnINHl35hXwVWUEtrZs0SAi3PLGQmU0oI8vgP6b2-8660hW7flUdXqpc-xV~VuS1OdMSTN-PuihJwZG6VlDNh0KOAfroxrVV8cJ7XvA8xLqg3gH~DWP~SP89OZ3G5GjF4eytk93PCZPCdAxlE20b1Fm185P3rK4pkGJAvdJAnUWZey9~KekRXnE5bvyhkPSwHQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4), lightgray 50% / cover no-repeat;
+}
+
+.emp--details {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	/*margin: 0;*/
+}
+
+.emp--details h4 {
+	color: #01CAB8;
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+
+	margin: 0;
+}
+
+.empt--details p {
+	color: var(--Text-2, rgba(36, 36, 36, 0.90));
+	font-family: Inter;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+	margin: 0;
 }
